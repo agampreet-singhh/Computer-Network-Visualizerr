@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide & Quiz - Computer Network Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <header class="project-header">
+        <h1>🌐 Computer Network Visualizer & Simulator</h1>
+        <p>B.Tech Computer Science & Engineering — Network Guide & Assessment</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="topology.html">Topology Builder</a></li>
+            <li><a href="protocols.html">Protocols & Layers</a></li>
+            <li><a href="about.html" class="active">Guide & Quiz</a></li>
+        </ul>
+        <div class="user-badge" id="navbarUserBadge">
+            <!-- Populated by auth.js -->
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Quick Summary Banner -->
+        <div class="alert alert-info">
+            <strong>Welcome to the Network Study Guide:</strong> Review standard network connecting devices, test your knowledge with the interactive quiz below, and explore the project documentation.
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            
+            <!-- LEFT COLUMN: HARDWARE REFERENCE & PROJECT INFO -->
+            <div>
+                <!-- Hardware Devices Reference -->
+                <div class="card">
+                    <h2 class="card-title">🔌 Network Hardware Connecting Devices</h2>
+                    <p style="font-size: 12px; color: #64748b; margin-bottom: 8px;">
+                        Quick reference of essential networking equipment and their operating principles:
+                    </p>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Device</th>
+                                <th>OSI Layer</th>
+                                <th>Forwarding Basis</th>
+                                <th>Broadcast Domain</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Hub / Repeater</strong></td>
+                                <td>Layer 1 (Physical)</td>
+                                <td>Floods all ports (Electrical signals)</td>
+                                <td>Single domain (Shared collision)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Switch / Bridge</strong></td>
+                                <td>Layer 2 (Data Link)</td>
+                                <td>MAC Address Table (CAM table)</td>
+                                <td>Separate collision domains, single broadcast</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Router</strong></td>
+                                <td>Layer 3 (Network)</td>
+                                <td>IP Routing Table (Next Hop)</td>
+                                <td>Breaks broadcast domains</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gateway</strong></td>
+                                <td>Layers 4 - 7</td>
+                                <td>Protocol Translation (e.g. IPv4 to IPv6)</td>
+                                <td>Isolated application domains</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Firewall</strong></td>
+                                <td>Layers 3 - 7</td>
+                                <td>Packet Filtering & State Inspection</td>
+                                <td>Security boundary filtering</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Academic Project Credits Card -->
+                <div class="card" style="background: #fafafa;">
+                    <h2 class="card-title">📖 Academic Project Documentation</h2>
+                    <div style="font-size: 13px; color: #334155; line-height: 1.6;">
+                        <p><strong>Project Name:</strong> Computer Network Visualizer & Simulator</p>
+                        <p><strong>Course:</strong> CS304 - Computer Networks & Data Communications</p>
+                        <p><strong>Department:</strong> Department of Computer Science & Engineering</p>
+                        <p><strong>Architecture:</strong> Pure Frontend (HTML5 Canvas, CSS3, JavaScript ES6)</p>
+                        <hr style="margin: 10px 0; border: 0; border-top: 1px solid #e2e8f0;">
+                        <h4 style="font-size: 13px; margin-bottom: 6px; color: #1f4e79;">Key Capabilities Implemented:</h4>
+                        <ul style="padding-left: 20px; font-size: 12px; color: #475569;">
+                            <li>Client-side mock authentication & session control</li>
+                            <li>Interactive network canvas with dynamic drag-and-drop nodes</li>
+                            <li>Graph pathfinding using Breadth-First Search (BFS) shortest path</li>
+                            <li>Live animated packet transmission with reverse ACK confirmation</li>
+                            <li>Step-by-step TCP 3-way handshake visualization</li>
+                            <li>OSI 7-layer architectural reference guide</li>
+                            <li>IPv4 CIDR subnetting and host range calculator</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: INTERACTIVE KNOWLEDGE QUIZ -->
+            <div>
+                <div class="card">
+                    <h2 class="card-title">
+                        <span>📝 Network Knowledge Self-Assessment Quiz</span>
+                        <span style="font-size: 12px; color: #64748b; font-weight: normal;">5 Questions</span>
+                    </h2>
+                    
+                    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">
+                        Select the correct answer for each question and click <strong>Submit Assessment</strong> for immediate feedback and score.
+                    </p>
+
+                    <!-- Score Result Box -->
+                    <div id="quizScoreBox" style="display: none; margin-bottom: 14px;"></div>
+
+                    <!-- Questions Container -->
+                    <div id="quizContainer">
+                        <!-- Populated by js/quiz.js -->
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 14px;">
+                        <button class="btn btn-primary" style="flex: 2; padding: 10px;" onclick="submitQuiz()">
+                            Submit Assessment
+                        </button>
+                        <button class="btn btn-secondary" style="flex: 1; padding: 10px;" onclick="resetQuiz()">
+                            Reset Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Computer Network Visualizer Project • Designed for Academic & Lab Demonstrations
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/quiz.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = requireAuth();
+            if (user) {
+                renderQuiz();
+            }
+        });
+    </script>
+</body>
+</html>
+

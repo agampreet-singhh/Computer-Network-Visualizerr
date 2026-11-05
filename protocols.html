@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocols & Layers - Computer Network Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <header class="project-header">
+        <h1>🌐 Computer Network Visualizer & Simulator</h1>
+        <p>B.Tech Computer Science & Engineering — Network Protocols & Architecture</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="topology.html">Topology Builder</a></li>
+            <li><a href="protocols.html" class="active">Protocols & Layers</a></li>
+            <li><a href="about.html">Guide & Quiz</a></li>
+        </ul>
+        <div class="user-badge" id="navbarUserBadge">
+            <!-- Populated by auth.js -->
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- SECTION 1: TCP 3-WAY HANDSHAKE VISUALIZER -->
+        <div class="card">
+            <h2 class="card-title">
+                <span>🔄 TCP 3-Way Handshake Connection Simulator</span>
+                <span style="font-size: 12px; font-weight: normal; color: #64748b;">Transport Layer (Layer 4)</span>
+            </h2>
+
+            <p style="font-size: 13px; color: #475569; margin-bottom: 14px;">
+                Demonstrates how reliable connection-oriented transport (Transmission Control Protocol) establishes a session using SYN, SYN-ACK, and ACK sequence exchanges.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 340px; gap: 16px;">
+                <!-- Handshake Canvas -->
+                <div>
+                    <div class="handshake-canvas-wrapper">
+                        <canvas id="handshakeCanvas"></canvas>
+                    </div>
+
+                    <!-- Step Controls -->
+                    <div style="display: flex; gap: 8px; margin-top: 12px; justify-content: center; align-items: center;">
+                        <button class="btn btn-secondary" id="prevStepBtn" onclick="prevHandshakeStep()">◀ Previous Step</button>
+                        <button class="btn btn-primary" id="nextStepBtn" onclick="nextHandshakeStep()">Next Step ▶</button>
+                        <button class="btn btn-success" onclick="autoPlayHandshake()">▶ Auto Play</button>
+                        <button class="btn btn-warning" onclick="resetHandshake()">🔄 Reset</button>
+                    </div>
+                </div>
+
+                <!-- Handshake Status & Information -->
+                <div>
+                    <div class="card" style="background: #f8fafc; border: 1px solid #cbd5e1; margin-bottom: 10px;">
+                        <h4 style="font-size: 13px; color: #1e293b; margin-bottom: 8px;">Socket States</h4>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                            <span>Client Socket State:</span>
+                            <span id="clientStateBadge" style="background: #64748b; color: white; padding: 2px 8px; border-radius: 4px; font-family: monospace; font-weight: bold;">CLOSED</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                            <span>Server Socket State:</span>
+                            <span id="serverStateBadge" style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; font-family: monospace; font-weight: bold;">LISTEN</span>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
+                        <h4 id="stepTitle" style="font-size: 13px; color: #166534; margin-bottom: 6px;">Step 0: Initial State</h4>
+                        <div id="stepDescription" style="font-size: 12px; color: #14532d; line-height: 1.5;">
+                            The server socket is listening on Port 80. The client prepares to send an initial SYN packet.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 & 3: OSI 7-LAYER & SUBNET CALCULATOR (2-COLUMNS) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            
+            <!-- OSI 7-Layer Model Reference -->
+            <div class="card">
+                <h2 class="card-title">
+                    <span>📚 OSI 7-Layer Architecture Model</span>
+                </h2>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;">
+                    Click any layer to view its Protocol Data Unit (PDU), function, and associated protocols:
+                </p>
+
+                <div class="osi-container">
+                    <div class="osi-layer active" data-layer="7" onclick="selectOsiLayer(7)">
+                        <span><strong>Layer 7:</strong> Application Layer</span>
+                        <span style="font-size: 11px; color: #64748b;">HTTP / DNS</span>
+                    </div>
+                    <div class="osi-layer" data-layer="6" onclick="selectOsiLayer(6)">
+                        <span><strong>Layer 6:</strong> Presentation Layer</span>
+                        <span style="font-size: 11px; color: #64748b;">SSL / ASCII</span>
+                    </div>
+                    <div class="osi-layer" data-layer="5" onclick="selectOsiLayer(5)">
+                        <span><strong>Layer 5:</strong> Session Layer</span>
+                        <span style="font-size: 11px; color: #64748b;">Sockets / RPC</span>
+                    </div>
+                    <div class="osi-layer" data-layer="4" onclick="selectOsiLayer(4)">
+                        <span><strong>Layer 4:</strong> Transport Layer</span>
+                        <span style="font-size: 11px; color: #64748b;">TCP / UDP</span>
+                    </div>
+                    <div class="osi-layer" data-layer="3" onclick="selectOsiLayer(3)">
+                        <span><strong>Layer 3:</strong> Network Layer</span>
+                        <span style="font-size: 11px; color: #64748b;">IP / ICMP</span>
+                    </div>
+                    <div class="osi-layer" data-layer="2" onclick="selectOsiLayer(2)">
+                        <span><strong>Layer 2:</strong> Data Link Layer</span>
+                        <span style="font-size: 11px; color: #64748b;">Ethernet / MAC</span>
+                    </div>
+                    <div class="osi-layer" data-layer="1" onclick="selectOsiLayer(1)">
+                        <span><strong>Layer 1:</strong> Physical Layer</span>
+                        <span style="font-size: 11px; color: #64748b;">Bits / Cables</span>
+                    </div>
+                </div>
+
+                <!-- Detail Box -->
+                <div id="osiLayerDetail" class="card" style="background: #ffffff; border: 1px solid #cbd5e1; margin-bottom: 0;">
+                    <!-- Filled by js/protocols.js -->
+                </div>
+            </div>
+
+            <!-- IPv4 Subnetting Calculator -->
+            <div class="card">
+                <h2 class="card-title">
+                    <span>🧮 IPv4 Subnet & Range Calculator</span>
+                </h2>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">
+                    Enter any IPv4 host address and CIDR prefix to calculate subnet boundaries and usable host capacities:
+                </p>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                    <div style="flex: 2;">
+                        <label style="font-size: 12px; font-weight: bold;">Host IP Address:</label>
+                        <input type="text" id="calcIpInput" class="form-control" value="192.168.1.45" placeholder="e.g. 192.168.1.1">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-size: 12px; font-weight: bold;">Prefix (CIDR):</label>
+                        <select id="calcCidrInput" class="form-control">
+                            <option value="8">/8 (255.0.0.0)</option>
+                            <option value="16">/16 (255.255.0.0)</option>
+                            <option value="20">/20 (255.255.240.0)</option>
+                            <option value="24" selected>/24 (255.255.255.0)</option>
+                            <option value="25">/25 (255.255.255.128)</option>
+                            <option value="26">/26 (255.255.255.192)</option>
+                            <option value="27">/27 (255.255.255.224)</option>
+                            <option value="28">/28 (255.255.255.240)</option>
+                            <option value="29">/29 (255.255.255.248)</option>
+                            <option value="30">/30 (Point-to-Point 2 hosts)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; margin-bottom: 14px;" onclick="calculateSubnet()">
+                    Calculate Subnet Parameters
+                </button>
+
+                <div id="subnetResult">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Computer Network Visualizer Project • Designed for Academic & Lab Demonstrations
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/protocols.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = requireAuth();
+            if (user) {
+                updateHandshakeUI();
+                selectOsiLayer(7);
+                calculateSubnet();
+            }
+        });
+    </script>
+</body>
+</html>
+

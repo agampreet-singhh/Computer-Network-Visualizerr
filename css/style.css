@@ -1,0 +1,536 @@
+/* ========================================================
+   Computer Network Visualizer - Stylesheet
+   Style: Classic College/Academic Mini-Project Theme
+   Simple, clean, functional, slightly retro/mediocre look
+   ======================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, "Segoe UI", Tahoma, sans-serif;
+    background-color: #eef2f7;
+    color: #2c3e50;
+    line-height: 1.5;
+}
+
+/* Header Banner */
+.project-header {
+    background: linear-gradient(135deg, #1f4e79, #2980b9);
+    color: #ffffff;
+    padding: 16px 24px;
+    text-align: center;
+    border-bottom: 4px solid #164063;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.project-header h1 {
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.project-header p {
+    font-size: 13px;
+    color: #d1e2f3;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: #1a365d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    display: inline-block;
+    padding: 12px 18px;
+    color: #edf2f7;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.nav-links li a:hover {
+    background-color: #2b4c7e;
+    color: #ffffff;
+}
+
+.nav-links li a.active {
+    background-color: #2b4c7e;
+    border-bottom: 3px solid #ffcc00;
+    color: #ffcc00;
+}
+
+.user-badge {
+    color: #fff;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-badge span {
+    background-color: #2b4c7e;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #79d70f;
+}
+
+.btn-logout {
+    background-color: #c0392b;
+    color: white;
+    border: 1px solid #962d22;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-logout:hover {
+    background-color: #a93226;
+}
+
+/* Main Container Layout */
+.container {
+    max-width: 1200px;
+    margin: 18px auto;
+    padding: 0 16px;
+}
+
+/* Card / Box Styling */
+.card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+}
+
+.card-title {
+    font-size: 18px;
+    color: #1f4e79;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: 0.15s ease-in-out;
+}
+
+.btn-primary {
+    background-color: #2980b9;
+    color: white;
+    border-color: #20638f;
+}
+.btn-primary:hover {
+    background-color: #1f618d;
+}
+
+.btn-success {
+    background-color: #27ae60;
+    color: white;
+    border-color: #1e8449;
+}
+.btn-success:hover {
+    background-color: #219150;
+}
+
+.btn-warning {
+    background-color: #f39c12;
+    color: white;
+    border-color: #b9770e;
+}
+.btn-warning:hover {
+    background-color: #d68910;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    border-color: #b03a2e;
+}
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-secondary {
+    background-color: #7f8c8d;
+    color: white;
+    border-color: #616a6b;
+}
+.btn-secondary:hover {
+    background-color: #626567;
+}
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Form Controls */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #334155;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    outline: none;
+    background: #fff;
+}
+
+.form-control:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 4px rgba(41, 128, 185, 0.4);
+}
+
+/* Alert Boxes */
+.alert {
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    border: 1px solid transparent;
+}
+.alert-info {
+    background-color: #e8f4f8;
+    color: #1b4f72;
+    border-color: #bee5eb;
+}
+.alert-success {
+    background-color: #eafaf1;
+    color: #196f3d;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    background-color: #fdedec;
+    color: #78281f;
+    border-color: #f5c6cb;
+}
+.alert-warning {
+    background-color: #fef9e7;
+    color: #7d6608;
+    border-color: #ffeeba;
+}
+
+/* ========================================================
+   Page 1: Login & Register Styles
+   ======================================================== */
+.login-body-wrapper {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border: 2px solid #b0c4de;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.login-tabs {
+    display: flex;
+    border-bottom: 2px solid #cbd5e1;
+    margin-bottom: 18px;
+}
+
+.login-tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: #f1f5f9;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    color: #475569;
+}
+
+.login-tab-btn.active {
+    background: #ffffff;
+    border-bottom: 3px solid #2980b9;
+    color: #1f4e79;
+}
+
+.login-hint {
+    background: #fff8e1;
+    border: 1px dashed #f57c00;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #6b3e00;
+    margin-top: 14px;
+}
+
+/* ========================================================
+   Page 2: Topology Canvas & Controls
+   ======================================================== */
+.visualizer-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr 300px;
+    gap: 16px;
+}
+
+@media (max-width: 1024px) {
+    .visualizer-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.palette-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.palette-item:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+}
+
+.palette-item.active {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    font-weight: bold;
+}
+
+.device-icon-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    background: #1f4e79;
+    color: white;
+}
+
+.canvas-wrapper {
+    position: relative;
+    border: 2px solid #94a3b8;
+    background: #ffffff;
+    background-image: radial-gradient(#d3dbe3 1.2px, transparent 1.2px);
+    background-size: 20px 20px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#networkCanvas {
+    display: block;
+    cursor: crosshair;
+}
+
+.canvas-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.terminal-console {
+    background-color: #0f172a;
+    color: #22c55e;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 4px;
+    height: 180px;
+    overflow-y: auto;
+    border: 1px solid #1e293b;
+    margin-top: 10px;
+}
+
+.terminal-line {
+    margin-bottom: 3px;
+    word-break: break-all;
+}
+
+.terminal-line.error {
+    color: #ef4444;
+}
+
+.terminal-line.info {
+    color: #38bdf8;
+}
+
+.terminal-line.success {
+    color: #4ade80;
+}
+
+/* ========================================================
+   Page 3: Protocol Simulator & OSI Model Styles
+   ======================================================== */
+.osi-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.osi-layer {
+    padding: 10px 14px;
+    background: #f1f5f9;
+    border-left: 6px solid #64748b;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.osi-layer:hover {
+    background: #e2e8f0;
+}
+
+.osi-layer.active {
+    background: #e0f2fe;
+    border-left-color: #0284c7;
+    font-weight: bold;
+}
+
+.handshake-canvas-wrapper {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+}
+
+.handshake-step-card {
+    border-left: 4px solid #2980b9;
+    background: #f8fafc;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+/* ========================================================
+   Page 4: About, Quiz & Table Styles
+   ======================================================== */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.quiz-card {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.quiz-card h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #1f4e79;
+}
+
+.quiz-option {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.quiz-option input {
+    margin-right: 6px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+    color: #64748b;
+    border-top: 1px solid #cbd5e1;
+    margin-top: 30px;
+    background: #ffffff;
+}
+

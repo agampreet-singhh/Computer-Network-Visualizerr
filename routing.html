@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routing Algorithms - Computer Network Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <header class="project-header">
+        <h1>🌐 Computer Network Visualizer & Simulator</h1>
+        <p>B.Tech Computer Science & Engineering — Routing Algorithms & Shortest Path</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="topology.html">Topology Builder</a></li>
+            <li><a href="protocols.html">Protocols & Layers</a></li>
+            <li><a href="routing.html" class="active">Routing Algorithms</a></li>
+            <li><a href="about.html">Guide & Quiz</a></li>
+        </ul>
+        <div class="user-badge" id="navbarUserBadge">
+            <!-- Populated by auth.js -->
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Quick Summary Banner -->
+        <div class="alert alert-info" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong>Network Routing Simulation:</strong> Visualize Dijkstra's Link-State Algorithm (OSPF) step-by-step and inspect Distance Vector Routing Tables (RIP / Bellman-Ford).
+            </div>
+            <div style="font-size: 12px; font-weight: bold; color: #1e40af;">
+                Layer 3 (Network Layer) Routing
+            </div>
+        </div>
+
+        <!-- SECTION 1: DIJKSTRA'S ALGORITHM VISUALIZER -->
+        <div class="card">
+            <h2 class="card-title">
+                <span>🛣️ Dijkstra's Shortest Path Algorithm (Link-State / OSPF)</span>
+                <span id="stepCounterBadge" style="font-size: 12px; background: #e0f2fe; color: #0284c7; padding: 3px 8px; border-radius: 4px; font-weight: bold;">
+                    Step 1
+                </span>
+            </h2>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 14px; background: #f8fafc; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <label style="font-size: 12px; font-weight: bold;">Source Router:</label>
+                    <select id="dijkstraSource" class="form-control" style="width: 140px; font-size: 12px; padding: 4px;" onchange="resetDijkstra()"></select>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <label style="font-size: 12px; font-weight: bold;">Destination Router:</label>
+                    <select id="dijkstraTarget" class="form-control" style="width: 140px; font-size: 12px; padding: 4px;" onchange="resetDijkstra()"></select>
+                </div>
+                <div class="btn-group" style="margin-left: auto;">
+                    <button class="btn btn-secondary" id="dijkstraPrevBtn" onclick="prevDijkstraStep()">◀ Previous</button>
+                    <button class="btn btn-primary" id="dijkstraNextBtn" onclick="nextDijkstraStep()">Next Step ▶</button>
+                    <button class="btn btn-success" onclick="autoPlayDijkstra()">▶ Auto Play</button>
+                    <button class="btn btn-warning" onclick="runDijkstraToCompletion()">Fast Forward ⏭</button>
+                    <button class="btn btn-danger" onclick="resetDijkstra()">🔄 Reset</button>
+                </div>
+            </div>
+
+            <!-- Canvas & Table Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 380px; gap: 16px;">
+                
+                <!-- Canvas Diagram -->
+                <div>
+                    <div class="canvas-wrapper">
+                        <canvas id="routingCanvas" height="340"></canvas>
+                    </div>
+                    <div style="font-size: 11px; color: #64748b; margin-top: 6px; display: flex; gap: 14px;">
+                        <span><strong style="color: #f59e0b;">● Yellow:</strong> Current active router</span>
+                        <span><strong style="color: #0284c7;">● Blue:</strong> Permanent / settled node</span>
+                        <span><strong style="color: #16a34a;">● Green:</strong> Shortest Path route</span>
+                    </div>
+                </div>
+
+                <!-- Step Explanation & Distance Table -->
+                <div>
+                    <!-- Step Box -->
+                    <div class="card" style="background: #f0fdf4; border: 1px solid #bbf7d0; margin-bottom: 12px; padding: 12px;">
+                        <h4 id="dijkstraStepTitle" style="font-size: 13px; color: #166534; margin-bottom: 4px;">Step 0</h4>
+                        <div id="dijkstraExplanation" style="font-size: 12px; color: #14532d; line-height: 1.5;">
+                            Initializing router distances...
+                        </div>
+                    </div>
+
+                    <!-- Distance Vector / Tentative Table -->
+                    <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px;">
+                        <h4 style="font-size: 13px; color: #1f4e79; margin-bottom: 6px;">Tentative Distance Table</h4>
+                        <table class="data-table" style="font-size: 11px; margin-top: 0;">
+                            <thead>
+                                <tr>
+                                    <th>Router</th>
+                                    <th>Dist (Cost)</th>
+                                    <th>Via (Predecessor)</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dijkstraTableBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SECTION 2: DISTANCE VECTOR ROUTING & COMPARISON -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            
+            <!-- Distance Vector (Bellman-Ford / RIP) Tables -->
+            <div class="card">
+                <h2 class="card-title">
+                    <span>🔄 Distance Vector Routing Tables (RIP / Bellman-Ford)</span>
+                </h2>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;">
+                    Each router periodically shares its entire routing table with immediate neighbors using the Bellman-Ford equation: <code>D_x(y) = min_v { c(x,v) + D_v(y) }</code>.
+                </p>
+
+                <div id="dvRoutingTables" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <!-- Filled by js/routing.js -->
+                </div>
+            </div>
+
+            <!-- Routing Protocols Comparison Reference -->
+            <div class="card">
+                <h2 class="card-title">
+                    <span>📊 Routing Algorithm Comparison</span>
+                </h2>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;">
+                    Theoretical comparison between popular interior and exterior gateway routing protocols:
+                </p>
+
+                <table class="data-table" style="font-size: 12px;">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Link-State (OSPF)</th>
+                            <th>Distance Vector (RIP)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Core Algorithm</strong></td>
+                            <td>Dijkstra's Algorithm</td>
+                            <td>Bellman-Ford Algorithm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Knowledge Scope</strong></td>
+                            <td>Complete network topology map</td>
+                            <td>Only distance and next hop via neighbors</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Convergence Speed</strong></td>
+                            <td>Fast (Instant updates on link change)</td>
+                            <td>Slow (Count-to-Infinity problem)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Metric Used</strong></td>
+                            <td>Cost (Bandwidth / Delay)</td>
+                            <td>Hop Count (Max 15 hops)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Message Overhead</strong></td>
+                            <td>Periodic Link State Advertisements (LSA)</td>
+                            <td>Periodic full routing table broadcasts (30s)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Computer Network Visualizer Project • Designed for Academic & Lab Demonstrations
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/routing.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = requireAuth();
+            if (user) {
+                initRoutingPage();
+            }
+        });
+    </script>
+</body>
+</html>
+

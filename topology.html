@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topology Visualizer - Computer Network Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <header class="project-header">
+        <h1>🌐 Computer Network Visualizer & Simulator</h1>
+        <p>B.Tech Computer Science & Engineering — Interactive Network Lab</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="topology.html" class="active">Topology Builder</a></li>
+            <li><a href="protocols.html">Protocols & Layers</a></li>
+            <li><a href="about.html">Guide & Quiz</a></li>
+        </ul>
+        <div class="user-badge" id="navbarUserBadge">
+            <!-- Populated by auth.js -->
+        </div>
+    </nav>
+
+    <!-- Main Visualizer Container -->
+    <div class="container">
+
+        <!-- Quick Intro Banner -->
+        <div class="alert alert-info" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong>Interactive Network Canvas:</strong> Drag devices to reposition. Click on tools below to add devices or cables. Select source and destination to simulate live packet transmission!
+            </div>
+            <div style="font-size: 12px; font-weight: bold; color: #1e40af;">
+                Mode: Real-time Shortest Path Simulation
+            </div>
+        </div>
+
+        <div class="visualizer-layout">
+
+            <!-- LEFT COLUMN: PALETTE & PRESETS -->
+            <div>
+                <div class="card">
+                    <h3 class="card-title">Device Palette</h3>
+                    <div class="palette-item active" data-tool="select" onclick="setTool('select')">
+                        <div class="device-icon-box">👆</div>
+                        <div>
+                            <div style="font-size: 13px; font-weight: bold;">Select / Move</div>
+                            <div style="font-size: 11px; color: #64748b;">Drag nodes on canvas</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" data-tool="pc" onclick="setTool('pc')">
+                        <div class="device-icon-box" style="background: #3b82f6;">💻</div>
+                        <div>
+                            <div style="font-size: 13px; font-weight: bold;">Workstation (PC)</div>
+                            <div style="font-size: 11px; color: #64748b;">Host machine with IP</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" data-tool="switch" onclick="setTool('switch')">
+                        <div class="device-icon-box" style="background: #10b981;">🔀</div>
+                        <div>
+                            <div style="font-size: 13px; font-weight: bold;">Ethernet Switch</div>
+                            <div style="font-size: 11px; color: #64748b;">Layer 2 forwarding</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" data-tool="router" onclick="setTool('router')">
+                        <div class="device-icon-box" style="background: #f59e0b;">🌐</div>
+                        <div>
+                            <div style="font-size: 13px; font-weight: bold;">Network Router</div>
+                            <div style="font-size: 11px; color: #64748b;">Layer 3 routing gateway</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" data-tool="server" onclick="setTool('server')">
+                        <div class="device-icon-box" style="background: #8b5cf6;">🗄️</div>
+                        <div>
+                            <div style="font-size: 13px; font-weight: bold;">Web / DNS Server</div>
+                            <div style="font-size: 11px; color: #64748b;">Target host service</div>
+                        </div>
+                    </div>
+
+                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid #cbd5e1;">
+
+                    <div class="palette-item" data-tool="connect" onclick="setTool('connect')">
+                        <div class="device-icon-box" style="background: #0284c7;">⚡</div>
+                        <div>
+                            <div style="font-size: 13px; font-weight: bold;">Connect Cable</div>
+                            <div style="font-size: 11px; color: #64748b;">Click 1st node, then 2nd</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" data-tool="delete" onclick="setTool('delete')">
+                        <div class="device-icon-box" style="background: #ef4444;">🗑️</div>
+                        <div>
+                            <div style="font-size: 13px; font-weight: bold;">Delete Tool</div>
+                            <div style="font-size: 11px; color: #64748b;">Click node to delete</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRESET TOPOLOGIES -->
+                <div class="card">
+                    <h3 class="card-title">Preset Topologies</h3>
+                    <div style="display: flex; flex-direction: column; gap: 6px;">
+                        <button class="btn btn-secondary" onclick="loadPresetTopology('star')">⭐ Star Topology</button>
+                        <button class="btn btn-secondary" onclick="loadPresetTopology('ring')">⭕ Ring Topology</button>
+                        <button class="btn btn-secondary" onclick="loadPresetTopology('mesh')">🕸️ Mesh Topology</button>
+                        <button class="btn btn-secondary" onclick="loadPresetTopology('bus')">🚌 Bus Backbone</button>
+                        <button class="btn btn-danger" style="margin-top: 6px;" onclick="clearAllTopology()">✖ Clear Canvas</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN: CANVAS WORKSPACE & TERMINAL -->
+            <div>
+                <div class="card" style="padding: 10px;">
+                    <div class="canvas-toolbar">
+                        <span style="font-weight: bold; font-size: 13px;">Canvas Area (Interactive Grid)</span>
+                        <div style="font-size: 11px; color: #64748b;">
+                            Tip: Drag devices around freely!
+                        </div>
+                    </div>
+                    <div class="canvas-wrapper">
+                        <canvas id="networkCanvas" height="480"></canvas>
+                    </div>
+
+                    <!-- Terminal Output Console -->
+                    <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: bold; font-size: 13px;">Packet Transmission & Event Log:</span>
+                        <button class="btn btn-secondary" style="font-size: 11px; padding: 3px 8px;" onclick="clearConsoleLog()">Clear Log</button>
+                    </div>
+                    <div class="terminal-console" id="terminalOutput">
+                        <div class="terminal-line info">[SYSTEM] Network Visualizer Engine initialized. Ready.</div>
+                        <div class="terminal-line info">[SYSTEM] Star topology loaded with central switch SW1.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: PACKET SENDER & DEVICE INSPECTOR -->
+            <div>
+                <!-- Ping / Packet Sender -->
+                <div class="card">
+                    <h3 class="card-title">Ping / Packet Simulator</h3>
+                    <div class="form-group">
+                        <label for="packetSourceSelect">Source Node (Sender):</label>
+                        <select id="packetSourceSelect" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="packetDestSelect">Destination Node (Receiver):</label>
+                        <select id="packetDestSelect" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="packetTypeSelect">Protocol / Packet Type:</label>
+                        <select id="packetTypeSelect" class="form-control">
+                            <option value="ICMP Echo (Ping)">ICMP Echo (Ping)</option>
+                            <option value="HTTP GET Request">HTTP GET Request (Port 80)</option>
+                            <option value="ARP Request">ARP Request (Address Resolution)</option>
+                            <option value="DNS Query">DNS Query (Port 53)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success" style="width: 100%; font-size: 14px; padding: 9px;" onclick="triggerSendPacket()">
+                        🚀 Send Packet / Ping
+                    </button>
+                </div>
+
+                <!-- Device Inspector -->
+                <div class="card">
+                    <h3 class="card-title">Device Inspector</h3>
+                    <div id="deviceInspector">
+                        <p style="font-size: 12px; color: #64748b; font-style: italic;">
+                            Click any device on the canvas to inspect its IP, MAC address, and properties.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Help / Instructions -->
+                <div class="card" style="background: #f8fafc;">
+                    <h4 style="font-size: 13px; margin-bottom: 6px; color: #1e3a8a;">Quick Help:</h4>
+                    <ul style="font-size: 11px; color: #475569; padding-left: 16px; line-height: 1.6;">
+                        <li>To connect devices: Click <strong>Connect Cable</strong>, click node A, then click node B.</li>
+                        <li>To add new devices: Click PC, Switch, or Router, then click on the canvas.</li>
+                        <li>Watch the red packet travel to the target and the green ACK return!</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Computer Network Visualizer Project • Designed for Academic & Lab Demonstrations
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/topology.js"></script>
+    <script>
+        // Check authentication before loading
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = requireAuth();
+            if (user) {
+                initTopology();
+            }
+        });
+    </script>
+</body>
+</html>
+
